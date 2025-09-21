@@ -1,11 +1,11 @@
 {
-  "campaign_name": "Voyage de fin d'année – École Les Étoiles",
-  "current_amount": 3250,
+  "campaign_name": "Voyage de fin d'année – École Nicolai",
+  "current_amount": 0,
   "main_goal": 8000,
   "milestones": [
     {
-      "target": 1500,
-      "title": "Journée au parc municipal",
+      "target": 300,
+      "title": "Journée à la Serna",
       "description": "Transport local + goûter",
       "image": "https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=1200&auto=format&fit=crop"
     },
