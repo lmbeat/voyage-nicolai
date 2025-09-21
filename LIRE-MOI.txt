@@ -1,0 +1,9 @@
+# Comment utiliser ce mini-site
+
+1) Mettez tous les fichiers sur n'importe quel hébergeur statique (GitHub Pages, Netlify, Vercel, OVH, un NAS…).
+2) Pour mettre à jour le montant sans republier les fichiers, vous avez 2 options :
+   - Modifier le fichier `data.json` (clé `current_amount`), ou
+   - Partager une URL avec le paramètre `?amount=XXXX` (ex: `?amount=4200`).
+3) Pour changer les paliers, modifiez le tableau `milestones` dans `data.json` (valeur `target` en euros + `title`/`description`/`image`).
+4) Accessibilité : la barre de progression et les cartes de paliers sont compatibles lecteur d'écran.
+5) Astuce : vous pouvez intégrer la page dans le site de l'école via une simple <iframe>.
