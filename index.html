@@ -100,7 +100,7 @@
     let confettiCooldown = false;
 
     async function loadData(){
-      const url = (DATA_URL.includes('PASTE_PUBLIC_JSON_URL')) ? 'data.json' : DATA_URL + (DATA_URL.includes('?') ? '&' : '?') + 'mode=json';
+      const url = (DATA_URL.includes('https://script.google.com/macros/s/AKfycbwiNA08Y9Q9A6SDd8qd6yyC7MvIwvN8CdNgev6oqYTqf96UgR49SdR-R3I3Hw_w655Qcw/exec')) ? 'data.json' : DATA_URL + (DATA_URL.includes('?') ? '&' : '?') + 'mode=json';
       const res = await fetch(url, { cache:'no-store' });
       if(!res.ok){ throw new Error('Impossible de charger les données (' + res.status + ').'); }
       return res.json();
