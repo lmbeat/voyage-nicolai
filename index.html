@@ -1,71 +1,123 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>Objectif Voyage – Progression</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Objectif Voyage – Suivi</title>
   <style>
-    body{
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      background:#0f172a;color:#f8fafc;margin:0;padding:24px
-    }
-    .card{
-      max-width:640px;margin:0 auto;
-      background:#111827;border:1px solid rgba(255,255,255,.08);
-      border-radius:14px;padding:20px
-    }
-    h2{margin-top:0;margin-bottom:16px}
-    .bar{
-      position:relative;height:28px;background:#1e293b;
-      border-radius:14px;overflow:hidden
-    }
-    .bar-fill{
-      position:absolute;top:0;left:0;height:100%;
-      background:linear-gradient(90deg,#22d3ee,#22c55e);
-      transition:width .6s ease;border-radius:14px
-    }
-    .bar-label{
-      position:absolute;right:8px;top:50%;transform:translateY(-50%);
-      font-size:14px;font-weight:700;
-      background:#bbf7d0;color:#052e13;padding:2px 6px;border-radius:8px
-    }
-    .footer{margin-top:16px;font-size:15px;color:#f1f5f9}
+    :root{--bg:#0f172a;--card:#111827;--muted:#94a3b8;--text:#f8fafc;--accent:#22c55e;--accent2:#16a34a;--track:#1f2937}
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#0f172a;color:var(--text);padding:24px}
+    .wrap{max-width:980px;margin:0 auto;display:grid;gap:20px}
+    header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    header h1{margin:0;font-size:clamp(20px,4.5vw,30px)}
+    header p{margin:0;color:var(--muted)}
+    .card{background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px}
+    h2{margin:0 0 12px}
+    /* Barre horizontale uniquement */
+    .bar{position:relative;height:28px;background:var(--track);border-radius:999px;overflow:hidden}
+    .fill{position:absolute;inset:0 auto 0 0;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .6s ease}
+    .label{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-weight:800;font-size:13px;background:#bbf7d0;color:#052e13;padding:4px 8px;border-radius:999px}
+    .muted{color:var(--muted)}
+    /* Grille des paliers */
+    .milestones{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+    .ms{position:relative;background:#0b1220;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px}
+    .ms img{width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:10px}
+    .ms h3{margin:0 0 6px 0;font-size:16px}
+    .ms .meta{font-size:13px;color:var(--muted)}
+    .badge{position:absolute;top:10px;right:10px;font-size:12px;font-weight:700;padding:6px 8px;border-radius:8px;background:#0b1220;border:1px solid rgba(255,255,255,.08);color:var(--muted)}
+    .ms.reached{outline:2px solid var(--accent)}
+    .ms.reached .badge{background:#052e13;color:#86efac;border-color:#14532d}
+    footer{color:var(--muted);font-size:14px}
+    a{color:#93c5fd;text-decoration:none}
   </style>
 </head>
 <body>
-  <div class="card">
-    <h2>Progression</h2>
-    <div class="bar" aria-label="Barre de progression">
-      <div id="bar-fill" class="bar-fill" style="width:0%"></div>
-      <div id="bar-label" class="bar-label">0%</div>
-    </div>
-    <div id="footer" class="footer">Chargement…</div>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Objectif Voyage – <span id="camp">Sortie de fin d'année</span></h1>
+        <p class="muted">Suivi en direct de la cagnotte (lecture seule)</p>
+      </div>
+      <div><a href="./historique.html">Historique ↗</a></div>
+    </header>
+
+    <section class="card">
+      <h2>Progression</h2>
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div id="fill" class="fill"></div>
+        <div id="lab" class="label">0%</div>
+      </div>
+      <p id="status" class="muted" style="margin-top:10px">Chargement…</p>
+    </section>
+
+    <section class="card">
+      <h2>Paliers & idées de sorties</h2>
+      <div id="grid" class="milestones"></div>
+    </section>
+
+    <footer>
+      <p>Les données proviennent d’un script Google Apps Script (lecture seule).</p>
+    </footer>
   </div>
 
   <script>
-    // 👉 Ton script public JSON
-    const DATA_URL = "https://script.google.com/macros/s/AKfycbwiNA08Y9Q9A6SDd8qd6yyC7MvIwvN8CdNgev6oqYTqf96UgR49SdR-R3I3Hw_w655Qcw/exec";
+    // URL de TON script public JSON
+    const DATA_URL = 'https://script.google.com/macros/s/AKfycbwiNA08Y9Q9A6SDd8qd6yyC7MvIwvN8CdNgev6oqYTqf96UgR49SdR-R3I3Hw_w655Qcw/exec';
+
+    const euro = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
 
     async function loadData(){
-      try{
-        const res = await fetch(DATA_URL, {cache:'no-store'});
-        const data = await res.json();
-        const current = Number(data.current_amount||0);
-        const goal = Number(data.main_goal||1);
-        const pct = Math.min(100, Math.round((current/goal)*100));
+      const res = await fetch(DATA_URL, { cache:'no-store' });
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }
 
-        // Mettre à jour la barre
-        document.getElementById('bar-fill').style.width = pct + '%';
-        document.getElementById('bar-label').textContent = pct + '%';
+    function render(data){
+      document.getElementById('camp').textContent = data.campaign_name || "Sortie de fin d'année";
 
-        // Texte du footer
-        document.getElementById('footer').textContent =
-          `${current.toLocaleString('fr-FR')} € collectés sur ${goal.toLocaleString('fr-FR')} € (objectif principal).`;
-      }catch(e){
-        document.getElementById('footer').textContent = "❌ Erreur de chargement: " + e;
+      const current = Number(data.current_amount || 0);
+      const goal = Number((data.main_goal != null ? data.main_goal :
+                   (data.milestones && data.milestones.length ? data.milestones[data.milestones.length-1].target : 0)) || 0);
+
+      // Barre
+      const p = goal > 0 ? Math.min(100, Math.round((current/goal)*100)) : 0;
+      document.getElementById('fill').style.width = p + '%';
+      document.getElementById('lab').textContent = p + '%';
+      document.querySelector('.bar').setAttribute('aria-valuenow', p);
+
+      // Texte
+      document.getElementById('status').innerHTML =
+        `<strong>${euro.format(current)}</strong> collectés sur <strong>${euro.format(goal)}</strong> (objectif principal).`;
+
+      // Paliers
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+      (data.milestones || []).forEach(m => {
+        const reached = current >= Number(m.target || 0);
+        const card = document.createElement('article');
+        card.className = 'ms' + (reached ? ' reached' : '');
+        if (m.image) {
+          const img = document.createElement('img'); img.src = m.image; img.alt = m.title || 'Palier';
+          card.appendChild(img);
+        }
+        const h = document.createElement('h3'); h.textContent = m.title || 'Palier';
+        const meta = document.createElement('div'); meta.className = 'meta';
+        meta.innerHTML = `Palier : <strong>${euro.format(m.target || 0)}</strong>${m.description ? ' · ' + m.description : ''}`;
+        const badge = document.createElement('div'); badge.className = 'badge'; badge.textContent = reached ? 'Atteint ✅' : 'À atteindre';
+        card.appendChild(h); card.appendChild(meta); card.appendChild(badge);
+        grid.appendChild(card);
+      });
+
+      if (!data.milestones || data.milestones.length === 0) {
+        grid.innerHTML = '<p class="muted">Aucun palier défini pour le moment.</p>';
       }
     }
-    loadData();
+
+    loadData().then(render).catch(e=>{
+      document.getElementById('status').textContent = '❌ Erreur de chargement : ' + (e.message || e);
+      console.error(e);
+    });
   </script>
 </body>
 </html>
