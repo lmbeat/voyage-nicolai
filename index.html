@@ -1,172 +1,71 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Objectif Voyage – Suivi des dons</title>
-  <meta name="description" content="Suivez en direct la progression des dons pour le voyage de fin d'année de l'école." />
+  <meta charset="utf-8">
+  <title>Objectif Voyage – Progression</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    :root{
-      --bg:#0f172a; --card:#111827; --muted:#94a3b8; --text:#f8fafc; --accent:#22c55e;
-      --accent-weak:#16a34a; --track:#1f2937; --ok:#3b82f6;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
     body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial;
-      background: radial-gradient(1000px 600px at 10% -10%, #1e293b 0%, transparent 60%), var(--bg);
-      color:var(--text);
-      display:flex; align-items:flex-start; justify-content:center; padding:24px;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:#0f172a;color:#f8fafc;margin:0;padding:24px
     }
-    .container{width:min(980px,100%); display:grid; gap:20px}
-    header{
-      display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap;
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
-      padding:16px 20px; border-radius:14px; border:1px solid rgba(255,255,255,.08); backdrop-filter: blur(4px);
-    }
-    header h1{font-size:clamp(20px,5vw,28px); margin:0}
-    header p{margin:0; color:var(--muted)}
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
-      border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px;
+      max-width:640px;margin:0 auto;
+      background:#111827;border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;padding:20px
     }
-    .progress-wrap{display:grid; gap:14px}
-    .bar{position:relative; height:28px; background:var(--track); border-radius:999px; overflow:hidden; outline:1px solid rgba(255,255,255,.06)}
-    .bar .fill{position:absolute; inset:0 auto 0 0; width:0%; background:linear-gradient(90deg,var(--accent),var(--accent-weak));
-      box-shadow:0 0 20px rgba(34,197,94,.35) inset; transition:width .6s cubic-bezier(.22,1,.36,1)}
-    .bar .label{position:absolute; right:12px; top:50%; transform:translateY(-50%);
-      font-size:13px; color:#052e13; font-weight:800; background:#a7f3d0; padding:6px 10px; border-radius:999px}
-    .milestones{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px}
-    .milestone{position:relative; background:#0b1220; border:1px solid rgba(255,255,255,.08); padding:14px; border-radius:12px}
-    .milestone h3{margin:0 0 6px 0; font-size:16px}
-    .milestone .meta{color:var(--muted); font-size:13px}
-    .milestone .badge{position:absolute; top:10px; right:10px; font-size:12px; font-weight:700; padding:6px 8px; border-radius:8px;
-      background:#0b1220; border:1px solid rgba(255,255,255,.08); color:var(--muted)}
-    .milestone.reached{outline:2px solid var(--accent); box-shadow:0 0 0 4px rgba(34,197,94,.15)}
-    .milestone.reached .badge{background:#052e13; color:#86efac; border-color:#14532d}
-    .milestone img{width:100%; height:140px; object-fit:cover; border-radius:10px; margin-bottom:10px}
-    .thermo{display:flex; gap:20px; align-items:flex-end; justify-content:center; padding:8px 0 4px}
-    .thermo .tick{display:flex; flex-direction:column; align-items:center; gap:8px}
-    .thermo .col{width:14px; border-radius:8px 8px 0 0; background:var(--track); position:relative; overflow:hidden; height:120px;
-      outline:1px solid rgba(255,255,255,.06)}
-    .thermo .col .inner{position:absolute; bottom:0; left:0; right:0; height:0%;
-      background:linear-gradient(0deg,var(--ok),var(--accent));
-      transition:height .6s cubic-bezier(.22,1,.36,1); box-shadow:0 0 20px rgba(59,130,246,.35) inset}
-    .thermo .tick label{font-size:12px; color:var(--muted)}
-    footer{color:var(--muted); font-size:12px; text-align:center}
-    a{color:#93c5fd}
+    h2{margin-top:0;margin-bottom:16px}
+    .bar{
+      position:relative;height:28px;background:#1e293b;
+      border-radius:14px;overflow:hidden
+    }
+    .bar-fill{
+      position:absolute;top:0;left:0;height:100%;
+      background:linear-gradient(90deg,#22d3ee,#22c55e);
+      transition:width .6s ease;border-radius:14px
+    }
+    .bar-label{
+      position:absolute;right:8px;top:50%;transform:translateY(-50%);
+      font-size:14px;font-weight:700;
+      background:#bbf7d0;color:#052e13;padding:2px 6px;border-radius:8px
+    }
+    .footer{margin-top:16px;font-size:15px;color:#f1f5f9}
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div>
-        <h1>Objectif Voyage – <span id="voyageName">Sortie de fin d'année</span></h1>
-        <p>Suivez la cagnotte en direct : plus on avance, plus le voyage s'améliore 🎒🚌</p>
-      </div>
-      <!-- Aucun contrôle ici -->
-    </header>
-
-    <section class="card progress-wrap">
-      <h2 style="margin:0;">Progression</h2>
-      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progression vers l'objectif principal">
-        <div class="fill" id="barFill"></div>
-        <div class="label" id="barLabel">0%</div>
-      </div>
-      <p id="statusLine" style="margin:0;color:var(--muted)">Chargement…</p>
-    </section>
-
-    <section class="card">
-      <h2 style="margin-top:0;">Paliers & idées de sorties</h2>
-      <div class="milestones" id="milestones"></div>
-    </section>
-
-    <footer>
-      <p>Les données proviennent uniquement de l’Apps Script (ou de <code>data.json</code> en local).</p>
-    </footer>
+  <div class="card">
+    <h2>Progression</h2>
+    <div class="bar" aria-label="Barre de progression">
+      <div id="bar-fill" class="bar-fill" style="width:0%"></div>
+      <div id="bar-label" class="bar-label">0%</div>
+    </div>
+    <div id="footer" class="footer">Chargement…</div>
   </div>
 
   <script>
-    // 👉 Remplace par l’URL /exec de ton Apps Script public
-    const DATA_URL = 'https://script.google.com/macros/s/AKfycbzF4qBzSf9ZSpRZ9dlLopWCXdXDpwi9tJQAwP46NOkyZBVcB2HtmkdBArrDybYHH0OO/exec';
-
-    const euro = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
-    let confettiCooldown = false;
+    // 👉 Ton script public JSON
+    const DATA_URL = "https://script.google.com/macros/s/AKfycbwiNA08Y9Q9A6SDd8qd6yyC7MvIwvN8CdNgev6oqYTqf96UgR49SdR-R3I3Hw_w655Qcw/exec";
 
     async function loadData(){
-      const url = (DATA_URL.includes('https://script.google.com/macros/s/AKfycbwiNA08Y9Q9A6SDd8qd6yyC7MvIwvN8CdNgev6oqYTqf96UgR49SdR-R3I3Hw_w655Qcw/exec'))
-        ? 'data.json' // fallback local (développement)
-        : DATA_URL + (DATA_URL.includes('?') ? '&' : '?') + 'mode=json';
-      const res = await fetch(url, { cache:'no-store' });
-      if(!res.ok){ throw new Error('Impossible de charger les données (' + res.status + ').'); }
-      return res.json();
-    }
-    function pct(curr, goal){ if(goal <= 0) return 0; return Math.max(0, Math.min(100, (curr/goal)*100)); }
-    function renderThermo(curr, max){
-      const steps = [0,.25,.5,.75,1];
-      const wrap = document.getElementById('thermo'); wrap.innerHTML = '';
-      steps.forEach(s=>{
-        const div = document.createElement('div'); div.className='tick';
-        const col = document.createElement('div'); col.className='col';
-        const inner = document.createElement('div'); inner.className='inner';
-        inner.style.height = Math.min(100, Math.max(0, (curr/(max*s || 1))*100)) + '%';
-        if(s===0){ inner.style.height = (curr>0?100:0)+'%'; }
-        col.appendChild(inner);
-        const lab = document.createElement('label'); lab.textContent = s===0? '0' : Math.round(s*100)+'%';
-        div.appendChild(col); div.appendChild(lab); wrap.appendChild(div);
-      });
-    }
-    function celebrate(){
-      if(confettiCooldown) return; confettiCooldown = true;
-      const burst = document.createElement('div'); burst.style.position='fixed'; burst.style.inset='0'; burst.style.pointerEvents='none'; document.body.appendChild(burst);
-      const pieces = 120;
-      for(let i=0;i<pieces;i++){
-        const s = document.createElement('div');
-        s.textContent = ['🎉','🎊','✨','🟢','🟡','🔵'][Math.floor(Math.random()*6)];
-        s.style.position='absolute'; s.style.left = (Math.random()*100)+'%'; s.style.top = '-10%';
-        s.style.fontSize = (14+Math.random()*18)+'px'; s.style.transform = `rotate(${Math.random()*360}deg)`;
-        s.style.transition = 'transform 1.4s ease, top 1.4s ease, opacity 1.4s ease'; burst.appendChild(s);
-        requestAnimationFrame(()=>{ s.style.top = '110%'; s.style.transform = `translateY(100vh) rotate(${Math.random()*360+360}deg)`; s.style.opacity = '0'; });
+      try{
+        const res = await fetch(DATA_URL, {cache:'no-store'});
+        const data = await res.json();
+        const current = Number(data.current_amount||0);
+        const goal = Number(data.main_goal||1);
+        const pct = Math.min(100, Math.round((current/goal)*100));
+
+        // Mettre à jour la barre
+        document.getElementById('bar-fill').style.width = pct + '%';
+        document.getElementById('bar-label').textContent = pct + '%';
+
+        // Texte du footer
+        document.getElementById('footer').textContent =
+          `${current.toLocaleString('fr-FR')} € collectés sur ${goal.toLocaleString('fr-FR')} € (objectif principal).`;
+      }catch(e){
+        document.getElementById('footer').textContent = "❌ Erreur de chargement: " + e;
       }
-      setTimeout(()=>burst.remove(), 1500); setTimeout(()=>confettiCooldown=false, 3000);
     }
-    function render(data){
-      document.getElementById('voyageName').textContent = data.campaign_name || "Sortie de fin d'année";
-      const current = data.current_amount;
-      const goal = data.main_goal ?? (data.milestones.length ? data.milestones[data.milestones.length-1].target : 0);
-      const fill = document.getElementById('barFill');
-      const bar = document.querySelector('.bar');
-      const label = document.getElementById('barLabel');
-      const p = pct(current, goal);
-      fill.style.width = p.toFixed(2)+'%';
-      bar.setAttribute('aria-valuenow', Math.round(p));
-      label.textContent = Math.round(p)+'%';
-      renderThermo(current, goal);
-      document.getElementById('statusLine').innerHTML =
-        `<strong>${euro.format(current)}</strong> collectés sur <strong>${euro.format(goal)}</strong> (objectif principal).`;
-      const grid = document.getElementById('milestones'); grid.innerHTML='';
-      let reachedNew = false;
-      data.milestones.forEach(m => {
-        const reached = current >= m.target;
-        if(reached && !m._wasReached) { reachedNew = true; m._wasReached = true; }
-        const card = document.createElement('article');
-        card.className = 'milestone' + (reached ? ' reached' : '');
-        if(m.image){
-          const img = document.createElement('img'); img.alt = m.title || 'Idée de sortie'; img.src = m.image; card.appendChild(img);
-        }
-        const h = document.createElement('h3'); h.textContent = m.title;
-        const meta = document.createElement('div'); meta.className='meta';
-        meta.innerHTML = `Palier: <strong>${euro.format(m.target)}</strong>${m.description ? ' · ' + m.description : ''}`;
-        const badge = document.createElement('div'); badge.className='badge'; badge.textContent = reached ? 'Atteint ✅' : 'À atteindre';
-        card.appendChild(h); card.appendChild(meta); card.appendChild(badge); grid.appendChild(card);
-      });
-      if(reachedNew){ celebrate(); }
-    }
-    loadData().then(render).catch(err => {
-      document.getElementById('statusLine').textContent = err.message;
-      console.error(err);
-    });
+    loadData();
   </script>
 </body>
 </html>
