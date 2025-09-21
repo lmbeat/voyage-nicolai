@@ -12,45 +12,49 @@
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial;
-      background: radial-gradient(1000px 600px at 10% -10%, #1e293b 0%, transparent 60%) , var(--bg);
-      color:var(--text);display:flex;align-items:flex-start;justify-content:center;padding:24px}
-    .container{width:min(980px,100%);display:grid;gap:20px}
-    header{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial;
+      background: radial-gradient(1000px 600px at 10% -10%, #1e293b 0%, transparent 60%), var(--bg);
+      color:var(--text);
+      display:flex; align-items:flex-start; justify-content:center; padding:24px;
+    }
+    .container{width:min(980px,100%); display:grid; gap:20px}
+    header{
+      display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap;
       background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
-      padding:16px 20px;border-radius:14px;border:1px solid rgba(255,255,255,.08);backdrop-filter: blur(4px)}
-    header h1{font-size:clamp(20px,5vw,28px);margin:0}
-    header p{margin:0;color:var(--muted)}
-    .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .pill{display:inline-flex;align-items:center;gap:8px;background:#0b1220;border:1px solid rgba(255,255,255,.08);
-      padding:10px 12px;border-radius:999px;color:var(--text)}
-    .pill input{background:transparent;border:none;outline:none;color:var(--text);width:110px;font-weight:600}
-    .btn{border:none;cursor:pointer;border-radius:10px;padding:10px 14px;font-weight:700;background:var(--accent);color:#052e13}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));border:1px solid rgba(255,255,255,.08);
-      border-radius:16px;padding:18px}
-    .progress-wrap{display:grid;gap:14px}
-    .bar{position:relative;height:28px;background:var(--track);border-radius:999px;overflow:hidden;outline:1px solid rgba(255,255,255,.06)}
-    .bar .fill{position:absolute;inset:0 auto 0 0;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-weak));
-      box-shadow:0 0 20px rgba(34,197,94,.35) inset;transition:width .6s cubic-bezier(.22,1,.36,1)}
-    .bar .label{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:13px;color:#052e13;font-weight:800;
-      background:#a7f3d0;padding:6px 10px;border-radius:999px}
-    .milestones{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-    .milestone{position:relative;background:#0b1220;border:1px solid rgba(255,255,255,.08);padding:14px;border-radius:12px}
-    .milestone h3{margin:0 0 6px 0;font-size:16px}
-    .milestone .meta{color:var(--muted);font-size:13px}
-    .milestone .badge{position:absolute;top:10px;right:10px;font-size:12px;font-weight:700;padding:6px 8px;border-radius:8px;
-      background:#0b1220;border:1px solid rgba(255,255,255,.08);color:var(--muted)}
-    .milestone.reached{outline:2px solid var(--accent);box-shadow:0 0 0 4px rgba(34,197,94,.15)}
-    .milestone.reached .badge{background:#052e13;color:#86efac;border-color:#14532d}
-    .milestone img{width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:10px}
-    .thermo{display:flex;gap:20px;align-items:flex-end;justify-content:center;padding:8px 0 4px}
-    .thermo .tick{display:flex;flex-direction:column;align-items:center;gap:8px}
-    .thermo .col{width:14px;border-radius:8px 8px 0 0;background:var(--track);position:relative;overflow:hidden;height:120px;
+      padding:16px 20px; border-radius:14px; border:1px solid rgba(255,255,255,.08); backdrop-filter: blur(4px);
+    }
+    header h1{font-size:clamp(20px,5vw,28px); margin:0}
+    header p{margin:0; color:var(--muted)}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+      border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px;
+    }
+    .progress-wrap{display:grid; gap:14px}
+    .bar{position:relative; height:28px; background:var(--track); border-radius:999px; overflow:hidden; outline:1px solid rgba(255,255,255,.06)}
+    .bar .fill{position:absolute; inset:0 auto 0 0; width:0%; background:linear-gradient(90deg,var(--accent),var(--accent-weak));
+      box-shadow:0 0 20px rgba(34,197,94,.35) inset; transition:width .6s cubic-bezier(.22,1,.36,1)}
+    .bar .label{position:absolute; right:12px; top:50%; transform:translateY(-50%);
+      font-size:13px; color:#052e13; font-weight:800; background:#a7f3d0; padding:6px 10px; border-radius:999px}
+    .milestones{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px}
+    .milestone{position:relative; background:#0b1220; border:1px solid rgba(255,255,255,.08); padding:14px; border-radius:12px}
+    .milestone h3{margin:0 0 6px 0; font-size:16px}
+    .milestone .meta{color:var(--muted); font-size:13px}
+    .milestone .badge{position:absolute; top:10px; right:10px; font-size:12px; font-weight:700; padding:6px 8px; border-radius:8px;
+      background:#0b1220; border:1px solid rgba(255,255,255,.08); color:var(--muted)}
+    .milestone.reached{outline:2px solid var(--accent); box-shadow:0 0 0 4px rgba(34,197,94,.15)}
+    .milestone.reached .badge{background:#052e13; color:#86efac; border-color:#14532d}
+    .milestone img{width:100%; height:140px; object-fit:cover; border-radius:10px; margin-bottom:10px}
+    .thermo{display:flex; gap:20px; align-items:flex-end; justify-content:center; padding:8px 0 4px}
+    .thermo .tick{display:flex; flex-direction:column; align-items:center; gap:8px}
+    .thermo .col{width:14px; border-radius:8px 8px 0 0; background:var(--track); position:relative; overflow:hidden; height:120px;
       outline:1px solid rgba(255,255,255,.06)}
-    .thermo .col .inner{position:absolute;bottom:0;left:0;right:0;height:0%;background:linear-gradient(0deg,var(--ok),var(--accent));
-      transition:height .6s cubic-bezier(.22,1,.36,1);box-shadow:0 0 20px rgba(59,130,246,.35) inset}
-    .thermo .tick label{font-size:12px;color:var(--muted)}
-    footer{color:var(--muted);font-size:12px;text-align:center}
+    .thermo .col .inner{position:absolute; bottom:0; left:0; right:0; height:0%;
+      background:linear-gradient(0deg,var(--ok),var(--accent));
+      transition:height .6s cubic-bezier(.22,1,.36,1); box-shadow:0 0 20px rgba(59,130,246,.35) inset}
+    .thermo .tick label{font-size:12px; color:var(--muted)}
+    footer{color:var(--muted); font-size:12px; text-align:center}
     a{color:#93c5fd}
   </style>
 </head>
@@ -61,13 +65,7 @@
         <h1>Objectif Voyage – <span id="voyageName">Sortie de fin d'année</span></h1>
         <p>Suivez la cagnotte en direct : plus on avance, plus le voyage s'améliore 🎒🚌</p>
       </div>
-      <div class="controls">
-        <div class="pill" title="Montant actuel (aperçu local)">
-          <span>€</span><input id="amountInput" type="number" step="1" min="0" value="0" aria-label="Montant actuel" />
-        </div>
-        <button class="btn" id="applyBtn">Aperçu</button>
-        <button class="btn" id="shareBtn" title="Copier le lien avec le montant">Partager</button>
-      </div>
+      <!-- Contrôles supprimés -->
     </header>
 
     <section class="card progress-wrap">
@@ -86,26 +84,28 @@
     </section>
 
     <footer>
-      <p>Ce site lit les données d'une URL (Apps Script) paramétrée. Modifiez <code>DATA_URL</code> dans ce fichier.</p>
+      <p>Les données proviennent uniquement de l’Apps Script (ou de <code>data.json</code> si vous travaillez en local).</p>
     </footer>
   </div>
 
   <script>
-    // Remplacez par l'URL /exec de votre Apps Script public (ajoutera ?mode=json)
+    // 🔧 Remplace par l’URL /exec de ton Apps Script public (lecture seule)
     const DATA_URL = 'https://script.google.com/macros/s/AKfycbwiNA08Y9Q9A6SDd8qd6yyC7MvIwvN8CdNgev6oqYTqf96UgR49SdR-R3I3Hw_w655Qcw/exec';
 
     const euro = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
-    const qs = new URLSearchParams(location.search);
-    const amountOverride = parseFloat(qs.get('amount'));
     let confettiCooldown = false;
 
     async function loadData(){
-      const url = (DATA_URL.includes('https://script.google.com/macros/s/AKfycbwiNA08Y9Q9A6SDd8qd6yyC7MvIwvN8CdNgev6oqYTqf96UgR49SdR-R3I3Hw_w655Qcw/exec')) ? 'data.json' : DATA_URL + (DATA_URL.includes('?') ? '&' : '?') + 'mode=json';
+      const url = (DATA_URL.includes('https://script.google.com/macros/s/AKfycbwiNA08Y9Q9A6SDd8qd6yyC7MvIwvN8CdNgev6oqYTqf96UgR49SdR-R3I3Hw_w655Qcw/exec'))
+        ? 'data.json' // fallback local uniquement (développement)
+        : DATA_URL + (DATA_URL.includes('?') ? '&' : '?') + 'mode=json';
       const res = await fetch(url, { cache:'no-store' });
       if(!res.ok){ throw new Error('Impossible de charger les données (' + res.status + ').'); }
       return res.json();
     }
+
     function pct(curr, goal){ if(goal <= 0) return 0; return Math.max(0, Math.min(100, (curr/goal)*100)); }
+
     function renderThermo(curr, max){
       const steps = [0,.25,.5,.75,1];
       const wrap = document.getElementById('thermo'); wrap.innerHTML = '';
@@ -120,6 +120,7 @@
         div.appendChild(col); div.appendChild(lab); wrap.appendChild(div);
       });
     }
+
     function celebrate(){
       if(confettiCooldown) return; confettiCooldown = true;
       const burst = document.createElement('div'); burst.style.position='fixed'; burst.style.inset='0'; burst.style.pointerEvents='none'; document.body.appendChild(burst);
@@ -134,49 +135,48 @@
       }
       setTimeout(()=>burst.remove(), 1500); setTimeout(()=>confettiCooldown=false, 3000);
     }
+
     function render(data){
-      const nameEl = document.getElementById('voyageName');
-      nameEl.textContent = data.campaign_name || 'Sortie de fin d\'année';
-      const current = Number.isFinite(amountOverride) ? amountOverride : data.current_amount;
+      document.getElementById('voyageName').textContent = data.campaign_name || "Sortie de fin d'année";
+      const current = data.current_amount;
       const goal = data.main_goal ?? (data.milestones.length ? data.milestones[data.milestones.length-1].target : 0);
-      document.getElementById('amountInput').value = Math.round(current);
+
       const fill = document.getElementById('barFill');
       const bar = document.querySelector('.bar');
       const label = document.getElementById('barLabel');
       const p = pct(current, goal);
-      fill.style.width = p.toFixed(2)+'%'; bar.setAttribute('aria-valuenow', Math.round(p)); label.textContent = Math.round(p)+'%';
+      fill.style.width = p.toFixed(2)+'%';
+      bar.setAttribute('aria-valuenow', Math.round(p));
+      label.textContent = Math.round(p)+'%';
+
       renderThermo(current, goal);
-      document.getElementById('statusLine').innerHTML = `<strong>${euro.format(current)}</strong> collectés sur <strong>${euro.format(goal)}</strong> (objectif principal).`;
+
+      document.getElementById('statusLine').innerHTML =
+        `<strong>${euro.format(current)}</strong> collectés sur <strong>${euro.format(goal)}</strong> (objectif principal).`;
+
       const grid = document.getElementById('milestones'); grid.innerHTML='';
       let reachedNew = false;
       data.milestones.forEach(m => {
         const reached = current >= m.target;
         if(reached && !m._wasReached) { reachedNew = true; m._wasReached = true; }
-        const card = document.createElement('article'); card.className = 'milestone' + (reached ? ' reached' : '');
-        if(m.image){ const img = document.createElement('img'); img.alt = m.title || 'Idée de sortie'; img.src = m.image; card.appendChild(img); }
+        const card = document.createElement('article');
+        card.className = 'milestone' + (reached ? ' reached' : '');
+        if(m.image){
+          const img = document.createElement('img'); img.alt = m.title || 'Idée de sortie'; img.src = m.image; card.appendChild(img);
+        }
         const h = document.createElement('h3'); h.textContent = m.title;
-        const meta = document.createElement('div'); meta.className='meta'; meta.innerHTML = `Palier: <strong>${euro.format(m.target)}</strong>${m.description ? ' · ' + m.description : ''}`;
+        const meta = document.createElement('div'); meta.className='meta';
+        meta.innerHTML = `Palier: <strong>${euro.format(m.target)}</strong>${m.description ? ' · ' + m.description : ''}`;
         const badge = document.createElement('div'); badge.className='badge'; badge.textContent = reached ? 'Atteint ✅' : 'À atteindre';
         card.appendChild(h); card.appendChild(meta); card.appendChild(badge); grid.appendChild(card);
       });
       if(reachedNew){ celebrate(); }
     }
-    function applyAmount(){
-      const val = parseFloat(document.getElementById('amountInput').value || '0');
-      const url = new URL(location.href); url.searchParams.set('amount', String(Math.max(0, Math.floor(val))));
-      history.replaceState({}, '', url); loadData().then(d => render(d));
-    }
-    function shareAmount(){
-      const url = new URL(location.href);
-      const val = parseFloat(document.getElementById('amountInput').value || '0');
-      if(Number.isFinite(val)){ url.searchParams.set('amount', String(Math.max(0, Math.floor(val)))); }
-      navigator.clipboard.writeText(url.toString()).then(()=>{
-        const btn = document.getElementById('shareBtn'); const old = btn.textContent; btn.textContent = 'Lien copié ✅'; setTimeout(()=>btn.textContent = old, 1200);
-      }).catch(()=>{ alert('Lien: ' + url.toString()); });
-    }
-    document.getElementById('applyBtn').addEventListener('click', applyAmount);
-    document.getElementById('shareBtn').addEventListener('click', shareAmount);
-    loadData().then(render).catch(err => { document.getElementById('statusLine').textContent = err.message; console.error(err); });
+
+    loadData().then(render).catch(err => {
+      document.getElementById('statusLine').textContent = err.message;
+      console.error(err);
+    });
   </script>
 </body>
 </html>
