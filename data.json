@@ -1,31 +1,6 @@
 {
-  "campaign_name": "Voyage de fin d'année – École Nicolai",
+  "campaign_name": "Exemple",
   "current_amount": 0,
-  "main_goal": 8000,
-  "milestones": [
-    {
-      "target": 300,
-      "title": "Journée à la Serna",
-      "description": "Transport local + goûter",
-      "image": "https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=1200&auto=format&fit=crop"
-    },
-    {
-      "target": 3000,
-      "title": "Sortie au musée des sciences",
-      "description": "Entrées + atelier découverte",
-      "image": "https://images.unsplash.com/photo-1581299894007-aaa50297cf16?q=80&w=1200&auto=format&fit=crop"
-    },
-    {
-      "target": 5000,
-      "title": "Journée au parc animalier",
-      "description": "Bus + billets groupe",
-      "image": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1200&auto=format&fit=crop"
-    },
-    {
-      "target": 8000,
-      "title": "Grand parc d'attractions",
-      "description": "Bus + entrées + repas",
-      "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop"
-    }
-  ]
+  "main_goal": 1000,
+  "milestones": []
 }
