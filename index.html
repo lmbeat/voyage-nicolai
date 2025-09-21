@@ -65,7 +65,7 @@
         <h1>Objectif Voyage – <span id="voyageName">Sortie de fin d'année</span></h1>
         <p>Suivez la cagnotte en direct : plus on avance, plus le voyage s'améliore 🎒🚌</p>
       </div>
-      <!-- Contrôles supprimés -->
+      <!-- Aucun contrôle ici -->
     </header>
 
     <section class="card progress-wrap">
@@ -84,12 +84,12 @@
     </section>
 
     <footer>
-      <p>Les données proviennent uniquement de l’Apps Script (ou de <code>data.json</code> si vous travaillez en local).</p>
+      <p>Les données proviennent uniquement de l’Apps Script (ou de <code>data.json</code> en local).</p>
     </footer>
   </div>
 
   <script>
-    // 🔧 Remplace par l’URL /exec de ton Apps Script public (lecture seule)
+    // 👉 Remplace par l’URL /exec de ton Apps Script public
     const DATA_URL = 'https://script.google.com/macros/s/AKfycbwiNA08Y9Q9A6SDd8qd6yyC7MvIwvN8CdNgev6oqYTqf96UgR49SdR-R3I3Hw_w655Qcw/exec';
 
     const euro = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
@@ -97,15 +97,13 @@
 
     async function loadData(){
       const url = (DATA_URL.includes('https://script.google.com/macros/s/AKfycbwiNA08Y9Q9A6SDd8qd6yyC7MvIwvN8CdNgev6oqYTqf96UgR49SdR-R3I3Hw_w655Qcw/exec'))
-        ? 'data.json' // fallback local uniquement (développement)
+        ? 'data.json' // fallback local (développement)
         : DATA_URL + (DATA_URL.includes('?') ? '&' : '?') + 'mode=json';
       const res = await fetch(url, { cache:'no-store' });
       if(!res.ok){ throw new Error('Impossible de charger les données (' + res.status + ').'); }
       return res.json();
     }
-
     function pct(curr, goal){ if(goal <= 0) return 0; return Math.max(0, Math.min(100, (curr/goal)*100)); }
-
     function renderThermo(curr, max){
       const steps = [0,.25,.5,.75,1];
       const wrap = document.getElementById('thermo'); wrap.innerHTML = '';
@@ -120,7 +118,6 @@
         div.appendChild(col); div.appendChild(lab); wrap.appendChild(div);
       });
     }
-
     function celebrate(){
       if(confettiCooldown) return; confettiCooldown = true;
       const burst = document.createElement('div'); burst.style.position='fixed'; burst.style.inset='0'; burst.style.pointerEvents='none'; document.body.appendChild(burst);
@@ -135,12 +132,10 @@
       }
       setTimeout(()=>burst.remove(), 1500); setTimeout(()=>confettiCooldown=false, 3000);
     }
-
     function render(data){
       document.getElementById('voyageName').textContent = data.campaign_name || "Sortie de fin d'année";
       const current = data.current_amount;
       const goal = data.main_goal ?? (data.milestones.length ? data.milestones[data.milestones.length-1].target : 0);
-
       const fill = document.getElementById('barFill');
       const bar = document.querySelector('.bar');
       const label = document.getElementById('barLabel');
@@ -148,12 +143,9 @@
       fill.style.width = p.toFixed(2)+'%';
       bar.setAttribute('aria-valuenow', Math.round(p));
       label.textContent = Math.round(p)+'%';
-
       renderThermo(current, goal);
-
       document.getElementById('statusLine').innerHTML =
         `<strong>${euro.format(current)}</strong> collectés sur <strong>${euro.format(goal)}</strong> (objectif principal).`;
-
       const grid = document.getElementById('milestones'); grid.innerHTML='';
       let reachedNew = false;
       data.milestones.forEach(m => {
@@ -172,7 +164,6 @@
       });
       if(reachedNew){ celebrate(); }
     }
-
     loadData().then(render).catch(err => {
       document.getElementById('statusLine').textContent = err.message;
       console.error(err);
